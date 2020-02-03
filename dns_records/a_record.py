@@ -7,4 +7,4 @@ class ARecord(DNSRecord):
         self.address = address
 
     def __str__(self):
-        return (f"IP\t{self.domain_name}\t{self.ttl}\t{self.auth}")
+        return (f"IP\t{self.address}\t{self.ttl}\t{self.auth}")

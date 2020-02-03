@@ -113,7 +113,7 @@ class Deserializer:
             rdlength, = self.DNS_QUERY_RDLENGTH_FORMAT.unpack_from(
                 message, offset)
             offset += self.DNS_QUERY_RDLENGTH_FORMAT.size
-
+            
             auth = 'noauth'
             if(aa):
                 auth = 'auth'
@@ -168,6 +168,7 @@ class Deserializer:
         return CNAMERecord(**record_dict), offset
 
     def process_OTHER_record(self, record_dict, message, offset):
+        rdlength = record_dict['rdlength']
         rdata = message[offset:offset+rdlength]
         offset += rdlength
 

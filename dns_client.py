@@ -83,16 +83,18 @@ class DNSClient:
         if(ancount > 0):
             print(f"***Answer Section ({ancount} answerRecords)***")
             for item in dns_response['answers']:
-                print(item)
+                print(str(item))
 
         print()
 
         if(arcount > 0):
             print(f"***Additional Section ({arcount} answerRecords)***")
             for item in dns_response['answers']:
-                print(item)
+                print(str(item))
+
+        print()
 
         if(nscount > 0):
             print(f"***Authoritative Section ({nscount} answerRecords)***")
             for item in dns_response['authoritative']:
-                print(item)
+                print(str(item))
