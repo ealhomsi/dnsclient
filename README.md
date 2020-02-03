@@ -32,4 +32,4 @@ For example: ./app.py -mx -t 10 -r 7 @8.8.8.8 mcgill.ca
     ./app.py @8.8.8.8 mcgill.ca
 ```
 
-you can alternatively python3 app.py when running the program
+you can alternatively `python3 app.py` when running the program
