@@ -40,20 +40,21 @@ class DNSClient:
             # open socket
             dnsSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             dnsSocket.settimeout(self.timeout)
-
+            dnsSocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            dnsSocket.bind(('', self.port))
+            
             # send & recv
             startTime = time.time_ns()
             dnsSocket.sendto(Serializer().build_packet(
                 self.name, self.qtype), (self.address, self.port))
-            recvBuff = dnsSocket.recvfrom(1024)
+            recvBuff, recvAddress = dnsSocket.recvfrom(512)
             endTime = time.time_ns()
 
             # close socket
             dnsSocket.close()
-
             print(
                 f'Response received after {(endTime - startTime)//1000000000} seconds {retry -1} retries')
-            dns_response = Deserializer().build_response(recvBuff[0])
+            dns_response = Deserializer().build_response(recvBuff)
             if(dns_response['rcode'] == 3):
                 print("NOT FOUND")
                 return
@@ -89,7 +90,7 @@ class DNSClient:
 
         if(arcount > 0):
             print(f"***Additional Section ({arcount} answerRecords)***")
-            for item in dns_response['answers']:
+            for item in dns_response['additional']:
                 print(str(item))
 
         print()

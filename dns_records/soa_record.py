@@ -12,4 +12,4 @@ class SOARecord(DNSRecord):
         self.minimumTTL = minimumTTL
 
     def __str__(self):
-        return (f"NS\t{self.primary}\t{self.ttl}\t{self.auth}")
+        return (f"SOA\t{self.primary}\t{self.ttl}\t{self.auth}")

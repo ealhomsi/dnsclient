@@ -1,7 +1,7 @@
 
 import struct
 from query_type import QueryType
-from dns_records import ARecord, CNAMERecord, MXRecord, OTHERRecord, SOARecord
+from dns_records import ARecord, CNAMERecord, MXRecord, OTHERRecord, SOARecord, NSRecord
 
 
 class Deserializer:
@@ -17,6 +17,7 @@ class Deserializer:
     def build_response(self, message):
         id, misc, qdcount, ancount, nscount, arcount = self.DNS_QUERY_MESSAGE_HEADER.unpack_from(
             message)
+
 
         qr = (misc & 0x8000) != 0
         opcode = (misc & 0x7800) >> 11
@@ -130,6 +131,9 @@ class Deserializer:
                 record, offset = self.process_MX_record(
                     record_dict, message, offset)
 
+            elif(atype == QueryType.NS):
+                record, offset = self.process_NS_record(record_dict, message, offset)
+
             elif(atype == QueryType.A):
                 record, offset = self.process_A_record(
                     record_dict, message, offset)
@@ -214,4 +218,13 @@ class Deserializer:
         })
 
         return SOARecord(**record_dict), offset
+    
+    def process_NS_record(self, record_dict, message, offset):
+        name_server, offset = self.get_labels(message, offset)
+
+        record_dict.update({
+            "name_server": name_server,
+        })
+
+        return NSRecord(**record_dict), offset
         
