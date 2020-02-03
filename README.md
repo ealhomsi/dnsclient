@@ -15,11 +15,21 @@ usage: app.py [-h] [-t TIMEOUT] [-r MAXRETRIES] [-p PORT] [-mx | -ns] address na
 For example: ./app.py -mx -t 10 -r 7 @8.8.8.8 mcgill.ca 
 ```
 
+### Parameters
+- timeout(optional): gives how long to wait, in seconds, before retransmitting an unanswered query. Default value: 5.
+- max-retries(optional): is the maximum number of times to retransmit an unanswered query before giving up. Default value: 3.
+- port(optional): is the UDP port number of the DNS server. Default value: 53.
+- -mx or -ns flags (optional): indicate whether to send a MX (mail server) or NS (name server). Those are mutually exclusive flags.
+- address (required) is the IPv4 address of the DNS server, in @a.b.c.d.format
+- name (required) is the domain name to query for.
+
 ## Run
 ```bash
-    chmod u+x app.py
+    chmod u+x app.py 
     ./app.py @8.8.8.8 mcgill.ca -mx 
     ./app.py @8.8.8.8 google.ca -ns  
     ./app.py @8.8.8.8 mcgill.ca -ns   
     ./app.py @8.8.8.8 mcgill.ca
 ```
+
+you can alternatively python3 app.py when running the program
