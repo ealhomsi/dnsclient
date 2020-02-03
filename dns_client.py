@@ -55,7 +55,7 @@ class DNSClient:
                 f'Response received after {(endTime - startTime)//1000000000} seconds {retry -1} retries')
             dns_response = Deserializer().build_response(recvBuff[0])
             if(dns_response['rcode'] == 3):
-                print(f"ERROR\tUnknown host")
+                print("NOT FOUND")
                 return
 
             self.beautify_dns_response(dns_response)
@@ -75,7 +75,7 @@ class DNSClient:
         arcount = dns_response['arcount']
         nscount = dns_response['nscount']
 
-        if(ancount + arcount  <= 0):
+        if(ancount + arcount + nscount <= 0):
             print("NOT FOUND")
             return
 

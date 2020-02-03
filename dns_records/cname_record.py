@@ -7,4 +7,4 @@ class CNAMERecord(DNSRecord):
         self.cname = cname
 
     def __str__(self):
-        return (f"CNAME\t{self.domain_name}\t{self.ttl}\t{self.auth}")
+        return (f"CNAME\t{self.cname}\t{self.ttl}\t{self.auth}")
