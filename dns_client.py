@@ -53,7 +53,7 @@ class DNSClient:
             # close socket
             dnsSocket.close()
             print(
-                f'Response received after {(endTime - startTime)//1000000000} seconds {retry -1} retries')
+                f'Response received after {(endTime - startTime)//1000000000} seconds ({retry -1} retries)')
             dns_response = Deserializer().build_response(recvBuff)
             if(dns_response['rcode'] == 3):
                 print("NOT FOUND")
@@ -82,20 +82,20 @@ class DNSClient:
 
 
         if(ancount > 0):
-            print(f"***Answer Section ({ancount} answerRecords)***")
+            print(f"***Answer Section ({ancount} records)***")
             for item in dns_response['answers']:
                 print(str(item))
 
         print()
 
         if(arcount > 0):
-            print(f"***Additional Section ({arcount} answerRecords)***")
+            print(f"***Additional Section ({arcount} records)***")
             for item in dns_response['additional']:
                 print(str(item))
 
         print()
 
         if(nscount > 0):
-            print(f"***Authoritative Section ({nscount} answerRecords)***")
+            print(f"***Authoritative Section ({nscount} records)***")
             for item in dns_response['authoritative']:
                 print(str(item))
